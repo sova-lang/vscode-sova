@@ -1,0 +1,105 @@
+{
+    "name": "sova",
+    "displayName": "Sova",
+    "description": "Sova language support - syntax highlighting, diagnostics, navigation, and refactors powered by `sova lsp`.",
+    "version": "0.1.0",
+    "publisher": "sova-lang",
+    "license": "MIT",
+    "icon": "icon.png",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/sova-lang/sova"
+    },
+    "engines": {
+        "vscode": "^1.75.0"
+    },
+    "categories": [
+        "Programming Languages",
+        "Linters",
+        "Formatters",
+        "Snippets"
+    ],
+    "keywords": [
+        "sova",
+        "language-server",
+        "lsp"
+    ],
+    "activationEvents": [
+        "workspaceContains:**/*.sova",
+        "workspaceContains:**/sova.toml"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "languages": [
+            {
+                "id": "sova",
+                "aliases": [
+                    "Sova",
+                    "sova"
+                ],
+                "extensions": [
+                    ".sova"
+                ],
+                "configuration": "./language-configuration.json",
+                "icon": {
+                    "light": "./icon.png",
+                    "dark": "./icon.png"
+                }
+            }
+        ],
+        "grammars": [
+            {
+                "language": "sova",
+                "scopeName": "source.sova",
+                "path": "./syntaxes/sova.tmLanguage.json"
+            }
+        ],
+        "commands": [
+            {
+                "command": "sova.restartServer",
+                "title": "Sova: Restart Language Server"
+            },
+            {
+                "command": "sova.runMain",
+                "title": "Sova: Run main()"
+            },
+            {
+                "command": "sova.runTest",
+                "title": "Sova: Run Test"
+            }
+        ],
+        "configuration": {
+            "title": "Sova",
+            "properties": {
+                "sova.serverPath": {
+                    "type": "string",
+                    "default": "sova",
+                    "description": "Path to the `sova` binary. Either a name resolved against PATH (the default) or an absolute path. The extension invokes it as `<serverPath> lsp`."
+                },
+                "sova.trace.server": {
+                    "type": "string",
+                    "enum": [
+                        "off",
+                        "messages",
+                        "verbose"
+                    ],
+                    "default": "off",
+                    "description": "Trace the JSON-RPC traffic between VS Code and the Sova language server (writes to the Output → Sova Language Server channel)."
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./"
+    },
+    "devDependencies": {
+        "@types/node": "^20.0.0",
+        "@types/vscode": "^1.75.0",
+        "typescript": "^5.3.0"
+    },
+    "dependencies": {
+        "vscode-languageclient": "^9.0.1"
+    }
+}
