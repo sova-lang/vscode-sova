@@ -142,8 +142,33 @@
         "decorators": {
             "patterns": [
                 {
-                    "name": "entity.name.decorator.sova",
-                    "match": "@[A-Za-z_][A-Za-z0-9_]*"
+                    "name": "meta.annotation.sova",
+                    "begin": "(@)([A-Za-z_][A-Za-z0-9_]*)",
+                    "beginCaptures": {
+                        "1": { "name": "punctuation.definition.annotation.sova" },
+                        "2": { "name": "entity.name.function.decorator.sova storage.type.annotation.sova" }
+                    },
+                    "end": "(?=\\s)|(?=$)|(?=[^A-Za-z0-9_()])",
+                    "patterns": [
+                        {
+                            "name": "meta.annotation.arguments.sova",
+                            "begin": "\\(",
+                            "end": "\\)",
+                            "beginCaptures": { "0": { "name": "punctuation.section.parens.begin.sova" } },
+                            "endCaptures": { "0": { "name": "punctuation.section.parens.end.sova" } },
+                            "patterns": [
+                                { "include": "#strings" },
+                                { "include": "#numbers" },
+                                {
+                                    "match": "([A-Za-z_][A-Za-z0-9_]*)\\s*:",
+                                    "captures": {
+                                        "1": { "name": "variable.parameter.annotation.sova" }
+                                    }
+                                },
+                                { "include": "$self" }
+                            ]
+                        }
+                    ]
                 }
             ]
         },
