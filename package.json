@@ -2,7 +2,7 @@
     "name": "sova",
     "displayName": "Sova",
     "description": "Sova language support - syntax highlighting, diagnostics, navigation, and refactors powered by `sova lsp`.",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "publisher": "DasDarki",
     "license": "MIT",
     "icon": "icon.png",

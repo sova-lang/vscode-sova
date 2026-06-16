@@ -75,11 +75,20 @@
             "patterns": [
                 {
                     "name": "keyword.control.sova",
-                    "match": "\\b(if|else|for|while|return|guard|break|continue|when|in|step|where)\\b"
+                    "match": "\\b(if|else|for|while|return|guard|break|continue|when|in|step)\\b"
                 },
                 {
                     "name": "keyword.declaration.sova",
-                    "match": "\\b(let|const|func|type|enum|interface|mixin|extern|new|package|import|on|using|synth|emit|append|to)\\b"
+                    "match": "\\b(let|const|func|type|enum|interface|mixin|extern|new|package|import|on|using|synth|emit)\\b"
+                },
+                {
+                    "comment": "Soft keywords (`where`, `to`, `append`) are valid identifiers everywhere in Sova except inside specific synth-grammar positions. The compiler's `softId` parser rule means user code can declare `func where()`, `package to`, etc. TextMate can't see semantic context, so we only highlight them as keywords when they appear in their syntactic neighbourhood — `for ... where cond`, `emit append`, `emit ... to ID` — and leave bare uses to fall through to identifier rendering. A few synth-syntax positions lose highlighting as a result; that's the right trade-off vs. mis-coloring every function or package named after a soft keyword.",
+                    "name": "keyword.control.sova",
+                    "match": "(?<=\\bin\\s)(?:\\b\\w+\\s+)?\\bwhere\\b"
+                },
+                {
+                    "name": "keyword.declaration.sova",
+                    "match": "\\bemit\\s+append\\b|(?<=\\bemit\\s)(?:\\w+\\s+)?\\bto\\b"
                 },
                 {
                     "name": "keyword.concurrency.sova",
