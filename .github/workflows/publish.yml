@@ -23,9 +23,13 @@ jobs:
           VERSION="${GITHUB_REF_NAME#v}"
           npm version "$VERSION" --no-git-tag-version --allow-same-version
 
-      - run: npm run compile
+      - run: npm run typecheck
 
       - name: Publish to VS Code Marketplace
+        # vsce publish auto-runs the `vscode:prepublish` script, which now
+        # invokes `npm run bundle:prod` (esbuild). No explicit build step
+        # needed before this — the previous `npm run compile` was both
+        # broken (script no longer exists) and redundant.
         run: npx --yes @vscode/vsce publish --pat "$VSCE_PAT"
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
