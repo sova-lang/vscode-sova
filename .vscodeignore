@@ -1,10 +1,26 @@
+# The bundled out/extension.js is fully self-contained (esbuild inlines
+# vscode-languageclient et al), so the .vsix doesn't need node_modules
+# or any of the build inputs.
+
 .vscode/**
 .vscode-test/**
-src/**
-node_modules/**
+.github/**
+.git/**
 .gitignore
+.vscodeignore
 .eslintrc.json
-**/*.map
-tsconfig.json
+
+src/**
 **/*.ts
-!out/**/*.js
+**/*.map
+esbuild.mjs
+tsconfig.json
+package-lock.json
+node_modules/**
+
+# Keep what the runtime actually needs:
+#   - out/extension.js (the bundle)
+#   - package.json, language-configuration.json, syntaxes/, icon.png
+#     (declarative contributes)
+#   - LICENSE, README.md (marketplace metadata)
+!out/extension.js
