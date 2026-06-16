@@ -75,11 +75,11 @@
             "patterns": [
                 {
                     "name": "keyword.control.sova",
-                    "match": "\\b(if|else|for|while|return|guard|break|continue|when|in|step)\\b"
+                    "match": "\\b(if|else|for|while|return|guard|break|continue|when|in|step|where)\\b"
                 },
                 {
                     "name": "keyword.declaration.sova",
-                    "match": "\\b(let|const|func|type|enum|interface|mixin|extern|new|package|import|on|using)\\b"
+                    "match": "\\b(let|const|func|type|enum|interface|mixin|extern|new|package|import|on|using|synth|emit|append|to)\\b"
                 },
                 {
                     "name": "keyword.concurrency.sova",
@@ -87,7 +87,7 @@
                 },
                 {
                     "name": "keyword.modifier.sova",
-                    "match": "\\b(private|implements|with)\\b"
+                    "match": "\\b(private|shared|implements|with)\\b"
                 },
                 {
                     "name": "keyword.wire.sova",
@@ -107,7 +107,21 @@
                 },
                 {
                     "name": "storage.type.side.sova",
-                    "match": "\\b(shared|frontend|backend)\\b"
+                    "match": "\\b(frontend|backend)\\b"
+                },
+                {
+                    "match": "\\b(on)\\s+(synth)\\b",
+                    "captures": {
+                        "1": { "name": "keyword.declaration.sova" },
+                        "2": { "name": "storage.type.side.sova" }
+                    }
+                },
+                {
+                    "match": "\\b(on)\\s+(field|param|method|ctor|type|func|let)\\b",
+                    "captures": {
+                        "1": { "name": "keyword.declaration.sova" },
+                        "2": { "name": "storage.type.target.sova" }
+                    }
                 }
             ]
         },
